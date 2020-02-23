@@ -1,0 +1,11 @@
+node_modules/
+dist/
+
+# error logs
+package-lock.json
+yarn-error.log
+npm-debug.log
+
+# auto creation by editor
+.idea/
+.DS_Store
