@@ -44,11 +44,12 @@ export const TypedVue = Vue as IVueConstructor<ITypedVue>;
  */
 const Plugin = {
   install(Vue) {
-    Vue.typedExtend = (options: any) => {
+    const typedExtend = (options: any) => {
       const instance = Vue.extend(options);
-      instance.typedExtend = Vue.extend;
+      instance.typedExtend = typedExtend;
       return instance;
-    };
+    }
+    Vue.typedExtend = typedExtend;
   },
 } as PluginObject<never>;
 

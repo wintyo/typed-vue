@@ -109,4 +109,34 @@ describe('test', () => {
     expectType<number>(vm._mergeValue);
     expect(vm._mergeValue).toBe(10);
   });
+
+  test('multiple extend', () => {
+    const ctor1 = TypedVue.typedExtend({
+      data() {
+        return {
+          a: 10,
+        };
+      },
+    });
+
+    const ctor2 = ctor1.typedExtend({
+      data() {
+        return {
+          b: 'hoge',
+        };
+      },
+    });
+
+    const ctor3 = ctor2.typedExtend({
+      mixins: [ctor1, ctor2],
+      data() {
+        return {
+          c: [1, 2, 3],
+        };
+      },
+    });
+
+    const vm = new ctor3();
+    console.log(vm.$data);
+  });
 });
