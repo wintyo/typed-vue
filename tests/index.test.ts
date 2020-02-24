@@ -83,7 +83,7 @@ describe('test', () => {
     const vm = new ctor({
       propsData: {
         str: 'hoge',
-        date: new Date('2020/02/01'),
+        date: new Date('2020-02-01T00:00:00+0000'),
       },
     });
 
@@ -92,7 +92,7 @@ describe('test', () => {
     expect(vm.$props.str).toBe('hoge');
 
     expectType<Date>(vm.$props.date);
-    expect(vm.$props.date.toString()).toBe('Sat Feb 01 2020 00:00:00 GMT+0900 (GMT+09:00)');
+    expect(vm.$props.date.toUTCString()).toBe('Sat, 01 Feb 2020 00:00:00 GMT');
 
     type tObj = Value<IProps, 'obj'>;
     expectType<tObj>(vm.$props.obj);
