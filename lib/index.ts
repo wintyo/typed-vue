@@ -44,8 +44,11 @@ export const TypedVue = Vue as IVueConstructor<ITypedVue>;
  */
 const Plugin = {
   install(Vue) {
-    const typedExtend = (options: any) => {
-      const instance = Vue.extend(options);
+    const typedExtend = function (this: any, options: any) {
+      const instance = Vue.extend({
+        ...options,
+        mixins: [this, ...(options.mixins || [])],
+      });
       instance.typedExtend = typedExtend;
       return instance;
     }

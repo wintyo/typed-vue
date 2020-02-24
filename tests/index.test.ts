@@ -128,7 +128,6 @@ describe('test', () => {
     });
 
     const ctor3 = ctor2.typedExtend({
-      mixins: [ctor1, ctor2],
       data() {
         return {
           c: [1, 2, 3],
@@ -136,7 +135,13 @@ describe('test', () => {
       },
     });
 
-    const vm = new ctor3();
-    console.log(vm.$data);
+    const vm2 = new ctor2();
+    expect(vm2.$data.a).toBe(10);
+    expect(vm2.$data.b).toBe('hoge');
+
+    const vm3 = new ctor3();
+    expect(vm3.$data.a).toBe(10);
+    expect(vm3.$data.b).toBe('hoge');
+    expect(vm3.$data.c).toEqual([1, 2, 3]);
   });
 });
