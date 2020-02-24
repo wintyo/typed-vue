@@ -110,7 +110,7 @@ describe('test', () => {
     expect(vm._mergeValue).toBe(10);
   });
 
-  test('multiple extend', () => {
+  test('serial extend', () => {
     const ctor1 = TypedVue.typedExtend({
       data() {
         return {
@@ -143,5 +143,37 @@ describe('test', () => {
     expect(vm3.$data.a).toBe(10);
     expect(vm3.$data.b).toBe('hoge');
     expect(vm3.$data.c).toEqual([1, 2, 3]);
+  });
+
+  test('parallel extend', () => {
+    const ctor1 = TypedVue.typedExtend({
+      data() {
+        return {
+          a: 10,
+        };
+      },
+    });
+
+    const ctor2 = TypedVue.typedExtend({
+      data() {
+        return {
+          b: 'hoge',
+        };
+      },
+    });
+
+    const ctor3 = TypedVue
+      .typedExtend(ctor1)
+      .typedExtend(ctor2)
+      .typedExtend({
+        created() {
+          expectType<number>(this.$data.a);
+          expectType<string>(this.$data.b);
+        },
+      });
+
+    const vm3 = new ctor3();
+    expect(vm3.$data.a).toBe(10);
+    expect(vm3.$data.b).toBe('hoge');
   });
 });

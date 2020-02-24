@@ -20,6 +20,9 @@ declare module 'vue/types/vue' {
     typedExtend<Data, Methods, Computed, Props>(
       options?: _ThisTypedComponentOptionsWithRecordProps<V, Data, Methods, Computed, Props>
     ): _ExtendedVue<V, Data, Methods, Computed, Props>;
+    typedExtend<_V extends Vue, Data, Methods, Computed, Props>(
+      extendedVue: _ExtendedVue<_V, Data, Methods, Computed, Props>
+    ): _ExtendedVue<V, Data, Methods, Computed, Props>;
     typedExtend(options?: ComponentOptions<V>): _ExtendedVue<V, {}, {}, {}, {}>;
   }
 }
@@ -45,10 +48,7 @@ export const TypedVue = Vue as IVueConstructor<ITypedVue>;
 const Plugin = {
   install(Vue) {
     const typedExtend = function (this: any, options: any) {
-      const instance = Vue.extend({
-        ...options,
-        mixins: [this, ...(options.mixins || [])],
-      });
+      const instance = this.extend(options);
       instance.typedExtend = typedExtend;
       return instance;
     }
