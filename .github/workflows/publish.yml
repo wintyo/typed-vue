@@ -1,0 +1,26 @@
+name: Build and Publish
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10.15.x
+          registry-url: https://registry.npmjs.org/
+      - name: Install
+        run: yarn install
+      - name: Test
+        run: yarn run test
+      - name: Build
+        run: yarn run build
+      - name: Publish
+        if: contains(github.ref, 'tags/v')
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
