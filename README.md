@@ -44,8 +44,7 @@ export default TypedVue.typedExtend({
 ```
 
 ### declare interface
-Actually, it is difficult to infer all types, especially props.  
-Because props parameters of options are Real Instance, not types.  
+Actually, it is difficult to infer all types, especially props because props parameters of options are Real Instance, not types.  
 So, I recommend you to declare interface for props and data.  
 The example is shown below.  
 
