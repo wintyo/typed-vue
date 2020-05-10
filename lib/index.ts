@@ -30,7 +30,7 @@ declare module 'vue/types/vue' {
 /**
  * export interfaces
  */
-import Vue, { PluginObject } from 'vue';
+import Vue from 'vue';
 import { Vue as IVue, VueConstructor as IVueConstructor } from 'vue/types/vue';
 
 export interface ITypedVue extends IVue {
@@ -43,17 +43,13 @@ export { IVueConstructor, RecordPropsDefinition }
 export const TypedVue = Vue as IVueConstructor<ITypedVue>;
 
 /**
- * implement and export plugin
+ * implement
  */
-const Plugin = {
-  install(Vue) {
-    const typedExtend = function (this: any, options: any) {
-      const instance = this.extend(options);
-      instance.typedExtend = typedExtend;
-      return instance;
-    }
-    Vue.typedExtend = typedExtend;
-  },
-} as PluginObject<never>;
+const typedExtend = function (this: any, options: any) {
+  const instance = this.extend(options);
+  instance.typedExtend = typedExtend;
+  return instance;
+}
+Vue.typedExtend = typedExtend;
 
-export default Plugin;
+export default TypedVue;

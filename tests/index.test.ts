@@ -1,8 +1,5 @@
-import Vue from 'vue';
-import TypedVuePlugin, { TypedVue, RecordPropsDefinition } from '../lib/index';
+import TypedVue, { RecordPropsDefinition } from '../lib/index';
 import { expectType } from 'tsd';
-
-Vue.use(TypedVuePlugin);
 
 type Value<Obj, K extends keyof Obj> = Obj[K];
 

@@ -12,18 +12,10 @@ $ yarn add @wintyo/typed-vue
 $ npm install --save @wintyo/typed-vue
 ```
 
-## Setup
-```
-import Vue from 'vue';
-import TypedVuePlugin from '@wintyo/typed-vue';
-
-Vue.use(TypedVuePlugin);
-```
-
 ## Usage
 ### infer all
 ```
-import { TypedVue } from '@wintyo/typed-vue';
+import TypedVue from '@wintyo/typed-vue';
 
 export default TypedVue.typedExtend({
   props: {
@@ -49,7 +41,7 @@ So, I recommend you to declare interface for props and data.
 The example is shown below.  
 
 ```
-import { TypedVue, RecordPropsDefinition } from '@wintyo/typed-vue';
+import TypedVue, { RecordPropsDefinition } from '@wintyo/typed-vue';
 
 interface IProps {
   str: string;
